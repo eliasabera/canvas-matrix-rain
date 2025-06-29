@@ -29,7 +29,8 @@ class Effect{
         this.canvasHeight = canvasHeight;
         this.fontsize = 25;
         this.column = this.canvasWidth / this.fontsize;
-        this.symbol=[]
+        this.symbol = [];
+        this.#initialize();
     }
     #initialize() {
         for (let i = 0; i < this.column; i++){
@@ -41,5 +42,8 @@ const effect = new Effect(canvas.width,canvas.height)
 
 
 function animate() {
-    ctx.font=effect.fontsize + 'px monospace'
+    ctx.font = effect.fontsize + 'px monospace'
+    effect.symbol.forEach(symbol => symbol.draw(ctx))
+    requestAnimationFrame(animate)
 }
+animate()
