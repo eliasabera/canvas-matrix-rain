@@ -13,7 +13,7 @@ class Symbol {
   }
     draw(context) {
         this.text = this.character.charAt(Math.floor(Math.random() * this.character.length))
-        context.fillStyle = "0aff0a";
+        context.fillStyle = "green";
         context.fillText(this.text, this.x*this.fontSize, this.y*this.fontSize);
         if (this.y * this.fontSize > this.canvasHeight) {
             this.y = 0;
@@ -23,6 +23,7 @@ class Symbol {
         }
   }
 }
+
 class Effect{
     constructor(canvasWidth,canvasHeight) {
         this.canvasWidth = canvasWidth;
@@ -34,7 +35,7 @@ class Effect{
     }
     #initialize() {
         for (let i = 0; i < this.column; i++){
-            this.Symbol[i]= new Symbol(i,0,this.fontsize,this.canvasHeight)
+            this.symbol[i]= new Symbol(i,0,this.fontsize,this.canvasHeight)
         }
     }
 }
@@ -43,7 +44,7 @@ const effect = new Effect(canvas.width,canvas.height)
 
 function animate() {
     ctx.font = effect.fontsize + 'px monospace'
-    effect.symbol.forEach(symbol => symbol.draw(ctx))
+    effect.symbol.forEach(symbo => symbo.draw(ctx))
     requestAnimationFrame(animate)
 }
 animate()
