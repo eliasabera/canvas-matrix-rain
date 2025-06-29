@@ -38,3 +38,8 @@ class Effect{
     }
 }
 const effect = new Effect(canvas.width,canvas.height)
+
+
+function animate() {
+    ctx.font=effect.fontsize + 'px monospace'
+}
