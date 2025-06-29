@@ -13,9 +13,9 @@ class Symbol {
   }
     draw(context) {
         this.text = this.character.charAt(Math.floor(Math.random() * this.character.length))
-        context.fillStyle = "green";
+        context.fillStyle = "#0aff0a ";
         context.fillText(this.text, this.x*this.fontSize, this.y*this.fontSize);
-        if (this.y * this.fontSize > this.canvasHeight) {
+        if (this.y * this.fontSize > this.canvasHeight && Math.random()>0.95) {
             this.y = 0;
         }
         else {
@@ -32,6 +32,7 @@ class Effect{
         this.column = this.canvasWidth / this.fontsize;
         this.symbol = [];
         this.#initialize();
+        console.log(this.symbol)
     }
     #initialize() {
         for (let i = 0; i < this.column; i++){
@@ -40,9 +41,19 @@ class Effect{
     }
 }
 const effect = new Effect(canvas.width,canvas.height)
+let lastTime = 0;
+const fps = 30;
+const nextFrame = 1000 / fps;
+let timer = 0;
 
-
-function animate() {
+function animate(timeStamp) {
+    const deltaTime = timeStamp - lastTime;
+    lastTime = timeStamp;
+    if (timer > nextFrame) {
+        
+    }
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0,0,canvas.width,canvas.height)
     ctx.font = effect.fontsize + 'px monospace'
     effect.symbol.forEach(symbo => symbo.draw(ctx))
     requestAnimationFrame(animate)
