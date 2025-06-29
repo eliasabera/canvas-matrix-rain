@@ -2,8 +2,14 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-let hue=0
 
+let gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+gradient.addColorStop(0,'red')
+gradient.addColorStop(0.2,'yellow')
+gradient.addColorStop(0.4,'green')
+gradient.addColorStop(0.6,'cyan')
+gradient.addColorStop(0.8,'blue')
+gradient.addColorStop(1,'magenta')
 
 class Symbol {
   constructor(x, y, fontSize, canvasHeight) {
@@ -46,7 +52,7 @@ class Effect{
         this.canvasHeight = height;
         this.column = this.canvasWidth / this.fontsize;
         this.symbol = [];
-        this.#initialize()
+        this.#initialize();
     }
 }
 const effect = new Effect(canvas.width,canvas.height)
@@ -62,11 +68,11 @@ function animate(timeStamp) {
         ctx.fillStyle = "rgba(0,0,0,0.05)";
         ctx.textAlign="center"
         ctx.fillRect(0, 0, canvas.width, canvas.height)
-        ctx.fillStyle = "hsl(" + hue + ", 100%, 50% )";;
+        ctx.fillStyle = gradient
         ctx.font = effect.fontsize + 'px monospace'
         effect.symbol.forEach(symbo => symbo.draw(ctx))
         timer = 0
-        hue++
+      
     }
     else {
         timer += deltaTime;
@@ -77,5 +83,6 @@ animate(0)
 
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
-    canvas.height=window.innerHeight
+    canvas.height = window.innerHeight;
+    effect.resize(canvas.width,canvas.height)
 })
